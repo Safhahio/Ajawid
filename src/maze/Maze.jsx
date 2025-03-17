@@ -1,11 +1,12 @@
-import React from 'react'
+import MazeProvider from "../providers/maze-game";
+import MazeGame from "../components/MazeGame";
 
 function Maze() {
   return (
-    <div>
-      showing the maze for the player
-    </div>
-  )
+    <MazeProvider>
+      <MazeGame />
+    </MazeProvider>
+  );
 }
 
-export default Maze
+export default Maze;

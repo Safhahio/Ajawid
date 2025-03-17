@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
 import Start from "./start/Start";
 import Play from "./play/Play";
 import Maze from "./maze/Maze";
