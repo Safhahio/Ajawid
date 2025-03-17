@@ -26,11 +26,32 @@ const MazeProvider = ({ children }) => {
   const [commands, setCommands] = useState([]);
   const [status, setStatus] = useState("idle");
   const [currentStep, setCurrentStep] = useState(0);
-  const [history, setHistory] = useState([]);
   const [movementPath, setMovementPath] = useState([]);
 
-  const addCommand = useCallback((cmd) => {
-    setCommands((current) => [...current, cmd]);
+  const addCmd = useCallback((cmd) => {
+    setCommands((current) => [...current, { ...cmd, valid: 0, steps: 0 }]);
+  }, []);
+
+  const addCmdUp = useCallback(() => {
+    addCmd({ dir: "up", display: "up" });
+  }, [addCmd]);
+
+  const addCmdDown = useCallback(() => {
+    addCmd({ dir: "down", display: "down" });
+  }, [addCmd]);
+
+  const addCmdRight = useCallback(() => {
+    addCmd({ dir: "right", display: "right" });
+  }, [addCmd]);
+
+  const addCmdLeft = useCallback(() => {
+    addCmd({ dir: "left", display: "left" });
+  }, [addCmd]);
+
+  const updateCmd = useCallback((opts, idx) => {
+    setCommands((prevCmds) =>
+      prevCmds.map((cmd, i) => (i === idx ? { ...cmd, ...opts } : cmd)),
+    );
   }, []);
 
   const { executeDirection, checkWin } = useMazeMovement(
@@ -50,7 +71,6 @@ const MazeProvider = ({ children }) => {
     setEndPosition(newEndPos);
     setStatus("idle");
     setCurrentStep(0);
-    setHistory([]);
     setMovementPath([]);
     setCommands([]);
   }, [generateMaze, findPosition, mazeSize]);
@@ -62,12 +82,11 @@ const MazeProvider = ({ children }) => {
     setPlayerPosition(startPos);
     setStatus("running");
     setCurrentStep(0);
-    setHistory([]);
     setMovementPath([]);
   }, [commands, findPosition, maze]);
 
   useEffect(() => {
-    console.log({status})
+    console.log({ status });
     if (status !== "running") return;
 
     const timer = setTimeout(() => {
@@ -76,16 +95,18 @@ const MazeProvider = ({ children }) => {
         return;
       }
 
-      const result = executeDirection(commands[currentStep], playerPosition);
+      const result = executeDirection(
+        commands[currentStep].dir,
+        playerPosition,
+      );
 
-      setHistory((prev) => [
-        ...prev,
+      updateCmd(
         {
-          command: commands[currentStep],
-          valid: result.valid,
+          valid: result.valid ? 1 : -1,
           steps: result.steps,
         },
-      ]);
+        currentStep,
+      );
 
       if (result.valid) {
         setMovementPath(result.path);
@@ -103,6 +124,7 @@ const MazeProvider = ({ children }) => {
     playerPosition,
     executeDirection,
     checkWin,
+    updateCmd,
   ]);
 
   useEffect(() => {
@@ -131,21 +153,25 @@ const MazeProvider = ({ children }) => {
       endPosition,
       commands,
       status,
-      history,
       resetGame,
       runCommands,
-      addCommand,
+      addCmdUp,
+      addCmdDown,
+      addCmdLeft,
+      addCmdRight,
     }),
     [
-      addCommand,
       maze,
       playerPosition,
       endPosition,
       commands,
       status,
-      history,
       resetGame,
       runCommands,
+      addCmdUp,
+      addCmdDown,
+      addCmdLeft,
+      addCmdRight,
     ],
   );
 
