@@ -1,12 +1,7 @@
-import MazeProvider from "../providers/maze-game";
 import MazeGame from "../components/MazeGame";
 
 function Maze() {
-  return (
-    <MazeProvider>
-      <MazeGame />
-    </MazeProvider>
-  );
+  return <MazeGame />;
 }
 
 export default Maze;

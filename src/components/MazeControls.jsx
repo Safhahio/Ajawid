@@ -4,10 +4,12 @@ import {
   ArrowBigDown,
   ArrowBigRight,
   ArrowBigLeft,
+  RotateCcw,
 } from "lucide-react";
 
 const MazeCommands = () => {
   const {
+    commands,
     addCmdUp,
     addCmdDown,
     addCmdRight,
@@ -22,6 +24,9 @@ const MazeCommands = () => {
       <div className="grid grid-cols-3 gap-4">
         <button className="col-start-2" onClick={addCmdUp} disabled={isRunning}>
           <ArrowBigUp />
+        </button>
+        <button className="warning" onClick={resetGame}>
+          <RotateCcw />
         </button>
         <button
           className="col-start-1"
@@ -38,10 +43,13 @@ const MazeCommands = () => {
         </button>
       </div>
       <div className="w-full flex gap-4 my-4 *:w-full ">
-        <button className="success" onClick={runCommands} disabled={isRunning}>
-          Start
+        <button
+          className="success"
+          onClick={runCommands}
+          disabled={isRunning || commands.length === 0}
+        >
+          ابدء
         </button>
-        {/* <button onClick={resetGame}>New Maze</button> */}
       </div>
     </div>
   );

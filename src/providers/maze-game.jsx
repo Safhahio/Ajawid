@@ -36,6 +36,10 @@ const MazeProvider = ({ children }) => {
 
   const isRunning = status === "running";
 
+  const stopGame = useCallback(() => {
+    setStatus("idle");
+  }, []);
+
   const addCmd = useCallback(
     (cmd) => {
       if (commands.length && commands[commands.length - 1].dir === cmd.dir)
@@ -110,7 +114,7 @@ const MazeProvider = ({ children }) => {
     setStatus("running");
     setCurrentStep(0);
     setMovementPath([]);
-  }, [commands.length, findPosition, maze, stopwatch]);
+  }, [commands.length, defaultCmd, findPosition, maze, stopwatch]);
 
   useEffect(() => {
     if (status !== "running") return;
@@ -180,6 +184,7 @@ const MazeProvider = ({ children }) => {
       commands,
       status,
       isRunning,
+      stopGame,
       resetGame,
       runCommands,
       addCmdUp,
@@ -196,6 +201,7 @@ const MazeProvider = ({ children }) => {
       commands,
       status,
       isRunning,
+      stopGame,
       resetGame,
       runCommands,
       addCmdUp,
