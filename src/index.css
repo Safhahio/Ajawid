@@ -62,10 +62,10 @@
 body {
   font-family: "LamaSans", sans-serif;
   background-color: #d0cfb0;
-  background-image: url("/pattern.svg"), url("/pattern-2.svg"), url("/bg.jpg");
-  background-position: 0% calc(100% - 1rem), -128px -128px, 0% 0%;
-  background-size: auto 3rem, 512px, cover;
-  background-repeat: repeat-x, no-repeat, no-repeat;
+  background-image: url("/pattern.svg"), url("/pattern-2.svg"), url("/logo.png"), url("/bg.jpg");
+  background-position: 0% calc(100% - 1rem), -128px -128px, 96% 4%, 0% 0%;
+  background-size: auto 3rem, 512px, 256px, cover;
+  background-repeat: repeat-x, no-repeat, no-repeat, no-repeat;
   min-height: 100vh;
 
   @apply text-accent;
