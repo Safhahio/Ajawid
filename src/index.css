@@ -1,59 +1,210 @@
 @import "tailwindcss";
 
+@theme {
+  --color-accent: #663232;
+  --color-success: #7dc242;
+  --color-info: #0d61ab;
+  --color-warning: #f5911f;
+  --color-danger: #c93029;
+  --color-light: #faf9f7;
+  --color-neutral: #d0cfb0;
+
+  --color-accent-dark: #512727;
+  --color-success-dark: #65a035;
+  --color-info-dark: #094b85;
+  --color-warning-dark: #d67b18;
+  --color-danger-dark: #a52621;
+  --color-neutral-dark: #b2b196;
+
+  --color-accent-hover: #5a2c2c;
+  --color-success-hover: #6fb23b;
+  --color-info-hover: #0a5394;
+  --color-warning-hover: #e3861c;
+  --color-danger-hover: #b52a24;
+  --color-neutral-hover: #c2c1a3;
+
+  --shadow-opacity: 0.2;
+  --shadow-depth: 5px;
+  --shadow-inset-strength: 1px;
+  --shadow-inset-spread: 5px;
+  --border-width: 4px;
+  --press-offset: 4px;
+}
+
+@font-face {
+  font-family: "LamaSans";
+  src: url("/fonts/LamaSans/LamaSans-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LamaSans";
+  src: url("/fonts/LamaSans/LamaSans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LamaSans";
+  src: url("/fonts/LamaSans/LamaSans-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LamaSans";
+  src: url("/fonts/LamaSans/LamaSans-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-display: swap;
+}
+
+body {
+  font-family: "LamaSans", sans-serif;
+  background-color: #d0cfb0;
+  background-image: url("/bg.jpg");
+  background-position: 100% 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+
+  @apply text-accent;
+}
+
 button {
-  @apply inline-flex items-center justify-center px-6 py-3 font-medium text-white rounded-lg cursor-pointer transition-all duration-150 shadow-lg transform active:translate-y-1 focus:outline-none;
+  @apply inline-flex items-center justify-center px-6 py-3 font-semibold cursor-pointer rounded-lg transition-all duration-150 transform active:translate-y-1 focus:outline-none;
 }
 
 button.primary {
-  @apply bg-blue-500 text-white border-b-4 border-blue-700 hover:bg-blue-600 shadow-blue-500/50;
+  @apply text-white;
+  background-color: theme("--color-info");
+  border-bottom: theme("--border-width") solid theme("--color-info-dark");
   box-shadow:
-    0 4px 0 0 rgb(29, 78, 216),
-    0 5px 5px rgba(0, 0, 0, 0.2);
+    0 theme("--border-width") 0 0 theme("--color-info-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button.primary:hover {
+  background-color: theme("--color-info-hover");
 }
 
 button.primary:active {
-  @apply border-b-0 shadow-inner bg-blue-600;
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
-  margin-top: 4px;
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-info-hover");
+  margin-top: theme("--press-offset");
 }
 
 button.success {
-  @apply bg-green-500 text-white border-b-4 border-green-700 hover:bg-green-600 shadow-green-500/50;
+  @apply text-white;
+  background-color: theme("--color-success");
+  border-bottom: theme("--border-width") solid theme("--color-success-dark");
   box-shadow:
-    0 4px 0 0 rgb(21, 128, 61),
-    0 5px 5px rgba(0, 0, 0, 0.2);
+    0 theme("--border-width") 0 0 theme("--color-success-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button.success:hover {
+  background-color: theme("--color-success-hover");
 }
 
 button.success:active {
-  @apply border-b-0 shadow-inner bg-green-600;
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
-  margin-top: 4px;
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-success-hover");
+  margin-top: theme("--press-offset");
 }
 
 button.danger {
-  @apply bg-red-500 text-white border-b-4 border-red-700 hover:bg-red-600 shadow-red-500/50;
+  @apply text-white;
+  background-color: theme("--color-danger");
+  border-bottom: theme("--border-width") solid theme("--color-danger-dark");
   box-shadow:
-    0 4px 0 0 rgb(185, 28, 28),
-    0 5px 5px rgba(0, 0, 0, 0.2);
+    0 theme("--border-width") 0 0 theme("--color-danger-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button.danger:hover {
+  background-color: theme("--color-danger-hover");
 }
 
 button.danger:active {
-  @apply border-b-0 shadow-inner bg-red-600;
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
-  margin-top: 4px;
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-danger-hover");
+  margin-top: theme("--press-offset");
 }
 
 button {
-  @apply bg-gray-500 text-white border-b-4 border-gray-700 hover:bg-gray-600 shadow-gray-500/50;
+  @apply text-accent;
+  background-color: theme("--color-neutral");
+  border-bottom: theme("--border-width") solid theme("--color-neutral-dark");
   box-shadow:
-    0 4px 0 0 rgb(55, 65, 81),
-    0 5px 5px rgba(0, 0, 0, 0.2);
+    0 theme("--border-width") 0 0 theme("--color-neutral-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button:hover {
+  background-color: theme("--color-neutral-hover");
 }
 
 button:active {
-  @apply border-b-0 shadow-inner bg-gray-600;
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
-  margin-top: 4px;
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-neutral-hover");
+  margin-top: theme("--press-offset");
+}
+
+button.warning {
+  @apply text-white;
+  background-color: theme("--color-warning");
+  border-bottom: theme("--border-width") solid theme("--color-warning-dark");
+  box-shadow:
+    0 theme("--border-width") 0 0 theme("--color-warning-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button.warning:hover {
+  background-color: theme("--color-warning-hover");
+}
+
+button.warning:active {
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-warning-hover");
+  margin-top: theme("--press-offset");
+}
+
+button.accent {
+  @apply text-white;
+  background-color: theme("--color-accent");
+  border-bottom: theme("--border-width") solid theme("--color-accent-dark");
+  box-shadow:
+    0 theme("--border-width") 0 0 theme("--color-accent-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button.accent:hover {
+  background-color: theme("--color-accent-hover");
+}
+
+button.accent:active {
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-accent-hover");
+  margin-top: theme("--press-offset");
 }
 
 button.sm {
@@ -65,7 +216,7 @@ button.lg {
 }
 
 button:disabled {
-  @apply opacity-60 cursor-not-allowed active:translate-y-0;
+  @apply opacity-60 cursor-not-allowed transform-none;
   box-shadow: none;
   border-bottom-width: 0;
 }

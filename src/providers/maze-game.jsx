@@ -91,6 +91,8 @@ const MazeProvider = ({ children }) => {
   const runCommands = useCallback(() => {
     if (commands.length === 0) return;
 
+    setCommands((current) => current.map((cmd) => ({ ...cmd, valid: 0 })));
+
     const startPos = findPosition(maze, 2);
     setPlayerPosition(startPos);
     setStatus("running");

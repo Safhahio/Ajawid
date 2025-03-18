@@ -18,7 +18,7 @@ const MazeCommands = () => {
   } = useMaze();
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-xs">
       <div className="grid grid-cols-3 gap-4">
         <button className="col-start-2" onClick={addCmdUp}>
           <ArrowBigUp />

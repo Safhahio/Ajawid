@@ -6,8 +6,8 @@ const MazeCommands = () => {
 
   return (
     <div className="w-full">
-      <h2>Commands</h2>
-      <div className="flex flex-col gap-2 [&>*:p-2]">
+      <h2 className="px-4">Commands</h2>
+      <div className="flex p-4 max-h-96 overflow-y-scroll flex-col gap-2">
         {commands.map((cmd, idx) => {
           const isNone = cmd.valid === 0;
           const isValid = cmd.valid === 1;
