@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+button {
+  @apply px-4 py-2 cursor-pointer rounded;
+}
+
+button {
+  @apply text-neutral-800 bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400;
+}
+
+button.success {
+  @apply text-green-800 bg-green-200 hover:bg-green-300 active:bg-green-400;
+}
+
+button.danger {
+  @apply text-red-800 bg-red-200 hover:bg-red-300 active:bg-red-400;
+}

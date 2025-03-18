@@ -4,10 +4,10 @@ import MazeDisplay from "./MazeDisplay";
 
 const MazeGame = () => {
   return (
-    <div className="flex flex-col items-center p-4 max-w-2xl mx-auto">
-      <MazeCommands />
-      <MazeControls />
+    <div className="flex flex-col items-center mx-auto max-w-2xl gap-4">
       <MazeDisplay />
+      <MazeControls />
+      <MazeCommands />
     </div>
   );
 };

@@ -29,29 +29,34 @@ const MazeProvider = ({ children }) => {
   const [movementPath, setMovementPath] = useState([]);
 
   const addCmd = useCallback((cmd) => {
-    setCommands((current) => [...current, { ...cmd, valid: 0, steps: 0 }]);
+    const id = Date.now() + Math.random();
+    setCommands((current) => [...current, { ...cmd, id, valid: 0, steps: 0 }]);
   }, []);
 
   const addCmdUp = useCallback(() => {
-    addCmd({ dir: "up", display: "up" });
+    addCmd({ dir: "up", display: "Up" });
   }, [addCmd]);
 
   const addCmdDown = useCallback(() => {
-    addCmd({ dir: "down", display: "down" });
+    addCmd({ dir: "down", display: "Down" });
   }, [addCmd]);
 
   const addCmdRight = useCallback(() => {
-    addCmd({ dir: "right", display: "right" });
+    addCmd({ dir: "right", display: "Right" });
   }, [addCmd]);
 
   const addCmdLeft = useCallback(() => {
-    addCmd({ dir: "left", display: "left" });
+    addCmd({ dir: "left", display: "Left" });
   }, [addCmd]);
 
   const updateCmd = useCallback((opts, idx) => {
     setCommands((prevCmds) =>
       prevCmds.map((cmd, i) => (i === idx ? { ...cmd, ...opts } : cmd)),
     );
+  }, []);
+
+  const rmCmd = useCallback((id) => {
+    setCommands((current) => current.filter((cmd) => cmd.id !== id));
   }, []);
 
   const { executeDirection, checkWin } = useMazeMovement(
@@ -156,6 +161,7 @@ const MazeProvider = ({ children }) => {
       resetGame,
       runCommands,
       addCmdUp,
+      rmCmd,
       addCmdDown,
       addCmdLeft,
       addCmdRight,
@@ -169,6 +175,7 @@ const MazeProvider = ({ children }) => {
       resetGame,
       runCommands,
       addCmdUp,
+      rmCmd,
       addCmdDown,
       addCmdLeft,
       addCmdRight,

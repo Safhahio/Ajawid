@@ -12,12 +12,16 @@ const MazeCommands = () => {
   } = useMaze();
 
   return (
-    <div className="w-full mb-4">
-      <div className="flex justify-between mt-2">
-        <button onClick={addCmdUp}>^</button>
-        <button onClick={addCmdRight}>&gt;</button>
-        <button onClick={addCmdLeft}>&lt;</button>
+    <div className="w-full">
+      <div className="grid grid-cols-3 gap-4">
+        <button className="col-start-2" onClick={addCmdUp}>
+          ^
+        </button>
+        <button className="col-start-1" onClick={addCmdLeft}>&lt;</button>
         <button onClick={addCmdDown}>v</button>
+        <button onClick={addCmdRight}>&gt;</button>
+      </div>
+      <div className="w-full flex gap-4 my-4 *:w-full">
         <button onClick={runCommands} disabled={status === "running"}>
           Start
         </button>
