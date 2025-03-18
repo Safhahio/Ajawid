@@ -1,17 +1,71 @@
 @import "tailwindcss";
 
 button {
-  @apply px-4 py-2 cursor-pointer rounded;
+  @apply inline-flex items-center justify-center px-6 py-3 font-medium text-white rounded-lg cursor-pointer transition-all duration-150 shadow-lg transform active:translate-y-1 focus:outline-none;
 }
 
-button {
-  @apply text-neutral-800 bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-400;
+button.primary {
+  @apply bg-blue-500 text-white border-b-4 border-blue-700 hover:bg-blue-600 shadow-blue-500/50;
+  box-shadow:
+    0 4px 0 0 rgb(29, 78, 216),
+    0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+button.primary:active {
+  @apply border-b-0 shadow-inner bg-blue-600;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 4px;
 }
 
 button.success {
-  @apply text-green-800 bg-green-200 hover:bg-green-300 active:bg-green-400;
+  @apply bg-green-500 text-white border-b-4 border-green-700 hover:bg-green-600 shadow-green-500/50;
+  box-shadow:
+    0 4px 0 0 rgb(21, 128, 61),
+    0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+button.success:active {
+  @apply border-b-0 shadow-inner bg-green-600;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 4px;
 }
 
 button.danger {
-  @apply text-red-800 bg-red-200 hover:bg-red-300 active:bg-red-400;
+  @apply bg-red-500 text-white border-b-4 border-red-700 hover:bg-red-600 shadow-red-500/50;
+  box-shadow:
+    0 4px 0 0 rgb(185, 28, 28),
+    0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+button.danger:active {
+  @apply border-b-0 shadow-inner bg-red-600;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 4px;
+}
+
+button {
+  @apply bg-gray-500 text-white border-b-4 border-gray-700 hover:bg-gray-600 shadow-gray-500/50;
+  box-shadow:
+    0 4px 0 0 rgb(55, 65, 81),
+    0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  @apply border-b-0 shadow-inner bg-gray-600;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 4px;
+}
+
+button.sm {
+  @apply px-4 py-2 text-sm;
+}
+
+button.lg {
+  @apply px-8 py-4 text-lg;
+}
+
+button:disabled {
+  @apply opacity-60 cursor-not-allowed active:translate-y-0;
+  box-shadow: none;
+  border-bottom-width: 0;
 }

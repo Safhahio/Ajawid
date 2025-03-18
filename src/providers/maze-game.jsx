@@ -28,10 +28,18 @@ const MazeProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [movementPath, setMovementPath] = useState([]);
 
-  const addCmd = useCallback((cmd) => {
-    const id = Date.now() + Math.random();
-    setCommands((current) => [...current, { ...cmd, id, valid: 0, steps: 0 }]);
-  }, []);
+  const addCmd = useCallback(
+    (cmd) => {
+      if (commands.length && commands[commands.length - 1].dir === cmd.dir)
+        return;
+      const id = Date.now() + Math.random();
+      setCommands((current) => [
+        ...current,
+        { ...cmd, id, valid: 0, steps: 0 },
+      ]);
+    },
+    [commands],
+  );
 
   const addCmdUp = useCallback(() => {
     addCmd({ dir: "up", display: "Up" });
