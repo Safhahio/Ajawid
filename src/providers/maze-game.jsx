@@ -28,6 +28,8 @@ const MazeProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [movementPath, setMovementPath] = useState([]);
 
+  const isRunning = status === "running";
+
   const addCmd = useCallback(
     (cmd) => {
       if (commands.length && commands[commands.length - 1].dir === cmd.dir)
@@ -64,8 +66,9 @@ const MazeProvider = ({ children }) => {
   }, []);
 
   const rmCmd = useCallback((id) => {
+    if (isRunning) return;
     setCommands((current) => current.filter((cmd) => cmd.id !== id));
-  }, []);
+  }, [isRunning]);
 
   const { executeDirection, checkWin } = useMazeMovement(
     maze,
@@ -101,7 +104,6 @@ const MazeProvider = ({ children }) => {
   }, [commands, findPosition, maze]);
 
   useEffect(() => {
-    console.log({ status });
     if (status !== "running") return;
 
     const timer = setTimeout(() => {
@@ -168,6 +170,7 @@ const MazeProvider = ({ children }) => {
       endPosition,
       commands,
       status,
+      isRunning,
       resetGame,
       runCommands,
       addCmdUp,
@@ -182,6 +185,7 @@ const MazeProvider = ({ children }) => {
       endPosition,
       commands,
       status,
+      isRunning,
       resetGame,
       runCommands,
       addCmdUp,

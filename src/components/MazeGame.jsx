@@ -5,8 +5,7 @@ import MazeControls from "./MazeControls";
 import MazeDisplay from "./MazeDisplay";
 
 const MazeGame = () => {
-  const { status } = useMaze();
-  const isRunning = status === "running";
+  const { isRunning } = useMaze();
 
   return (
     <>

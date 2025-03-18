@@ -12,7 +12,7 @@ const MazeCommands = () => {
     addCmdDown,
     addCmdRight,
     addCmdLeft,
-    status,
+    isRunning,
     runCommands,
     resetGame,
   } = useMaze();
@@ -34,7 +34,7 @@ const MazeCommands = () => {
         </button>
       </div>
       <div className="w-full flex gap-4 my-4 *:w-full">
-        <button onClick={runCommands} disabled={status === "running"}>
+        <button onClick={runCommands} disabled={isRunning}>
           Start
         </button>
         <button onClick={resetGame}>New Maze</button>

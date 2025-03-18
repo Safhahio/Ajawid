@@ -2,9 +2,7 @@ import { useMaze } from "../providers/maze-game";
 import clsx from "clsx";
 
 const MazeDisplay = () => {
-  const { maze, playerPosition, status } = useMaze();
-
-  const isRunning = status === "running";
+  const { maze, playerPosition, isRunning } = useMaze();
 
   return (
     <div
