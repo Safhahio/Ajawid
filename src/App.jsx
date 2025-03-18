@@ -5,7 +5,7 @@ import Maze from "./maze/Maze";
 
 function App() {
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-4xl mx-auto">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Start />} />

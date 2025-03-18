@@ -18,26 +18,30 @@ const MazeCommands = () => {
   } = useMaze();
 
   return (
-    <div className="w-full max-w-xs">
+    <div>
       <div className="grid grid-cols-3 gap-4">
-        <button className="col-start-2" onClick={addCmdUp}>
+        <button className="col-start-2" onClick={addCmdUp} disabled={isRunning}>
           <ArrowBigUp />
         </button>
-        <button className="col-start-1" onClick={addCmdLeft}>
+        <button
+          className="col-start-1"
+          onClick={addCmdLeft}
+          disabled={isRunning}
+        >
           <ArrowBigLeft />
         </button>
-        <button onClick={addCmdDown}>
+        <button onClick={addCmdDown} disabled={isRunning}>
           <ArrowBigDown />
         </button>
-        <button onClick={addCmdRight}>
+        <button onClick={addCmdRight} disabled={isRunning}>
           <ArrowBigRight />
         </button>
       </div>
-      <div className="w-full flex gap-4 my-4 *:w-full">
-        <button onClick={runCommands} disabled={isRunning}>
+      <div className="w-full flex gap-4 my-4 *:w-full ">
+        <button className="success" onClick={runCommands} disabled={isRunning}>
           Start
         </button>
-        <button onClick={resetGame}>New Maze</button>
+        {/* <button onClick={resetGame}>New Maze</button> */}
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useStopwatch = () => {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
 
   useEffect(() => {
+    console.log(running);
     let interval;
     if (running) {
       interval = setInterval(() => {
@@ -14,20 +15,17 @@ const useStopwatch = () => {
     return () => clearInterval(interval);
   }, [running]);
 
-  const start = () => setRunning(true);
-  const stop = () => setRunning(false);
-  const reset = () => {
-    setTime(0);
-    setRunning(false);
-  };
+  const start = useCallback(() => setRunning(true), []);
+  const stop = useCallback(() => setRunning(false), []);
+  const reset = useCallback(() => { setTime(0); }, []);
 
-  const formatTime = () => {
+  const formatTime = useCallback(() => {
     const minutes = Math.floor((time / 60000) % 60);
     const seconds = Math.floor((time / 1000) % 60);
     const milliseconds = Math.floor((time / 10) % 100);
 
     return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}:${milliseconds.toString().padStart(2, "0")}`;
-  };
+  }, [time]);
 
   return { time, running, start, stop, reset, formatTime };
 };

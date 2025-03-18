@@ -14,6 +14,7 @@
   --color-info-dark: #094b85;
   --color-warning-dark: #d67b18;
   --color-danger-dark: #a52621;
+  --color-light-dark: #e0dfd9;
   --color-neutral-dark: #b2b196;
 
   --color-accent-hover: #5a2c2c;
@@ -21,6 +22,7 @@
   --color-info-hover: #0a5394;
   --color-warning-hover: #e3861c;
   --color-danger-hover: #b52a24;
+  --color-light-hover: #f0efed;
   --color-neutral-hover: #c2c1a3;
 
   --shadow-opacity: 0.2;
@@ -61,7 +63,7 @@
 
 body {
   font-family: "LamaSans", sans-serif;
-  background-color: #d0cfb0;
+  background-color: theme("--color-neutral");
   background-image: url("/pattern.svg"), url("/pattern-2.svg"), url("/logo.png"), url("/bg.jpg");
   background-position: 0% calc(100% - 1rem), -128px -128px, 96% 4%, 0% 0%;
   background-size: auto 3rem, 512px, 256px, cover;
@@ -76,13 +78,13 @@ button {
 }
 
 button.primary {
-  @apply text-white;
   background-color: theme("--color-info");
   border-bottom: theme("--border-width") solid theme("--color-info-dark");
   box-shadow:
     0 theme("--border-width") 0 0 theme("--color-info-dark"),
     0 theme("--shadow-depth") theme("--shadow-depth")
       rgba(0, 0, 0, theme("--shadow-opacity"));
+  @apply text-light;
 }
 
 button.primary:hover {
@@ -98,13 +100,13 @@ button.primary:active {
 }
 
 button.success {
-  @apply text-white;
   background-color: theme("--color-success");
   border-bottom: theme("--border-width") solid theme("--color-success-dark");
   box-shadow:
     0 theme("--border-width") 0 0 theme("--color-success-dark"),
     0 theme("--shadow-depth") theme("--shadow-depth")
       rgba(0, 0, 0, theme("--shadow-opacity"));
+  @apply text-light;
 }
 
 button.success:hover {
@@ -120,13 +122,13 @@ button.success:active {
 }
 
 button.danger {
-  @apply text-white;
   background-color: theme("--color-danger");
   border-bottom: theme("--border-width") solid theme("--color-danger-dark");
   box-shadow:
     0 theme("--border-width") 0 0 theme("--color-danger-dark"),
     0 theme("--shadow-depth") theme("--shadow-depth")
       rgba(0, 0, 0, theme("--shadow-opacity"));
+  @apply text-light;
 }
 
 button.danger:hover {
@@ -143,6 +145,28 @@ button.danger:active {
 
 button {
   @apply text-accent;
+  background-color: theme("--color-light");
+  border-bottom: theme("--border-width") solid theme("--color-light-dark");
+  box-shadow:
+    0 theme("--border-width") 0 0 theme("--color-light-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+}
+
+button:hover {
+  background-color: theme("--color-light-hover");
+}
+
+button:active {
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-light-hover");
+  margin-top: theme("--press-offset");
+}
+
+button.neutral {
+  @apply text-accent;
   background-color: theme("--color-neutral");
   border-bottom: theme("--border-width") solid theme("--color-neutral-dark");
   box-shadow:
@@ -151,11 +175,11 @@ button {
       rgba(0, 0, 0, theme("--shadow-opacity"));
 }
 
-button:hover {
+button.neutral:neutral:hover {
   background-color: theme("--color-neutral-hover");
 }
 
-button:active {
+button.neutral:active {
   @apply border-b-0;
   box-shadow: inset 0 theme("--shadow-inset-strength")
     theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
@@ -216,7 +240,6 @@ button.lg {
 }
 
 button:disabled {
-  @apply opacity-60 cursor-not-allowed transform-none;
+  @apply opacity-50 cursor-not-allowed transform-none pointer-events-none;
   box-shadow: none;
-  border-bottom-width: 0;
 }
