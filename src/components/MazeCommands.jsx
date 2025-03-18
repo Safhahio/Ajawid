@@ -20,8 +20,9 @@ const MazeCommands = () => {
 
           return (
             <button
+              dir="rtl"
               className={clsx({
-                "w-full text-left sm": true,
+                "w-full text-start sm flex": true,
                 neutral: isNone,
                 success: isValid,
                 danger: isInvalid,
@@ -29,11 +30,13 @@ const MazeCommands = () => {
               key={cmd.id}
               onClick={() => rmCmd(cmd.id)}
             >
-              <span>{idx + 1}. </span>
-              <span>{cmd.display}</span>
-              {isValid ? <span> ✓</span> : null}
-              {isInvalid ? <span> ✗</span> : null}
-              {cmd.steps ? <span> ({cmd.steps} steps)</span> : null}
+              <span className="flex-1/12">{idx + 1}. </span>
+              <span className="flex-11/12">
+                <span>{cmd.display}</span>
+                {isValid ? <span> ✓</span> : null}
+                {isInvalid ? <span> ✗</span> : null}
+                {cmd.steps ? <span> ({cmd.steps} خطوات)</span> : null}
+              </span>
             </button>
           );
         })}

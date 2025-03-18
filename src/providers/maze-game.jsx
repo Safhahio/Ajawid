@@ -15,6 +15,7 @@ const MazeContext = createContext(null);
 const MazeProvider = ({ children }) => {
   const mazeSize = useMemo(() => ({ width: 13, height: 9 }), []);
   const stopwatch = useStopWatch();
+  const defaultCmd = useMemo(() => ({ valid: 0, steps: 0 }), []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(stopwatch.start, []);
@@ -40,28 +41,25 @@ const MazeProvider = ({ children }) => {
       if (commands.length && commands[commands.length - 1].dir === cmd.dir)
         return;
       const id = Date.now() + Math.random();
-      setCommands((current) => [
-        ...current,
-        { ...cmd, id, valid: 0, steps: 0 },
-      ]);
+      setCommands((current) => [...current, { ...cmd, id, ...defaultCmd }]);
     },
-    [commands],
+    [commands, defaultCmd],
   );
 
   const addCmdUp = useCallback(() => {
-    addCmd({ dir: "up", display: "Up" });
+    addCmd({ dir: "up", display: "استدر للأعلى" });
   }, [addCmd]);
 
   const addCmdDown = useCallback(() => {
-    addCmd({ dir: "down", display: "Down" });
+    addCmd({ dir: "down", display: "استدر للأسفل" });
   }, [addCmd]);
 
   const addCmdRight = useCallback(() => {
-    addCmd({ dir: "right", display: "Right" });
+    addCmd({ dir: "right", display: "استدر لليمين" });
   }, [addCmd]);
 
   const addCmdLeft = useCallback(() => {
-    addCmd({ dir: "left", display: "Left" });
+    addCmd({ dir: "left", display: "استدر لليسار" });
   }, [addCmd]);
 
   const updateCmd = useCallback((opts, idx) => {
@@ -105,7 +103,7 @@ const MazeProvider = ({ children }) => {
     if (commands.length === 0) return;
     stopwatch.stop();
 
-    setCommands((current) => current.map((cmd) => ({ ...cmd, valid: 0 })));
+    setCommands((current) => current.map((cmd) => ({ ...cmd, ...defaultCmd })));
 
     const startPos = findPosition(maze, 2);
     setPlayerPosition(startPos);
