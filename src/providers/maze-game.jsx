@@ -117,8 +117,8 @@ const MazeProvider = ({ children }) => {
 
   const rmCmd = useCallback(
     (id) => {
-      resumeGame();
       if (isRunning) return;
+      resumeGame();
       setCommands((current) => current.filter((cmd) => cmd.id !== id));
     },
     [isRunning, resumeGame],
