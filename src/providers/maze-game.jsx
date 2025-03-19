@@ -54,20 +54,24 @@ const MazeProvider = ({ children }) => {
     setStatus("idle");
   }, []);
 
+  const resumeGame = useCallback(() => {
+    if (!stopwatch.running) {
+      stopwatch.start();
+    }
+    if (status === "lose") {
+      setStatus("idle");
+    }
+  }, [status, stopwatch]);
+
   const addCmd = useCallback(
     (cmd) => {
-      if (!stopwatch.running) {
-        stopwatch.start();
-      }
-      if (status === "lose") {
-        setStatus("idle");
-      }
+      resumeGame();
       if (commands.length && commands[commands.length - 1].dir === cmd.dir)
         return;
       const id = Date.now() + Math.random();
       setCommands((current) => [...current, { ...cmd, id, ...defaultCmd }]);
     },
-    [commands, defaultCmd, status, stopwatch],
+    [commands, defaultCmd, resumeGame],
   );
 
   const addCmdUp = useCallback(() => {
@@ -113,10 +117,11 @@ const MazeProvider = ({ children }) => {
 
   const rmCmd = useCallback(
     (id) => {
+      resumeGame();
       if (isRunning) return;
       setCommands((current) => current.filter((cmd) => cmd.id !== id));
     },
-    [isRunning],
+    [isRunning, resumeGame],
   );
 
   const { executeDirection, checkWin } = useMazeMovement(
