@@ -85,11 +85,15 @@ const MazeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (status !== "win") return;
-    addUser(currentUser.name, time);
-    setTimeout(() => {
-      navigate("/play/");
-    }, 1000);
+    if (currentUser.name === "") return;
+
+    if (status === "win") {
+      addUser(currentUser.name, time);
+      setTimeout(() => {
+        navigate("/play/");
+      }, 1000);
+    } else if (status === "lose") {
+    }
   }, [status, addUser, currentUser, time, navigate]);
 
   const rmCmd = useCallback(

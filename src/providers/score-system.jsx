@@ -25,9 +25,11 @@ export const ScoreProvider = ({ children }) => {
 
   useEffect(resetTimer, [resetTimer, currentUser]);
 
-  useEffect(() => {
+  const writeUsers = useCallback(() => {
     localStorage.setItem("scoreSystem", JSON.stringify(users));
-  }, [users]);
+  }, [users])
+
+  useEffect(writeUsers, [writeUsers]);
 
   const addUser = useCallback(
     (name, score) => {
@@ -61,7 +63,8 @@ export const ScoreProvider = ({ children }) => {
 
   const reset = useCallback(() => {
     setUsers([]);
-  }, []);
+    writeUsers();
+  }, [writeUsers]);
 
   const restart = useCallback(() => {
     setCurrentUser(defaultUser);
