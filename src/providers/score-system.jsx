@@ -77,8 +77,7 @@ export const ScoreProvider = ({ children }) => {
 
   const leaderboard = useCallback(() => {
     navigate("/play/");
-    setTimeout(resetUser, 250);
-  }, [resetUser, navigate]);
+  }, [navigate]);
 
   const value = {
     users,
