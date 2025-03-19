@@ -26,7 +26,7 @@ function Start() {
   return (
     <div
       dir="rtl"
-      className="flex flex-col gap-4 py-24 justify-between min-h-dvh max-w-lg mx-auto"
+      className="flex flex-col gap-4 py-8 justify-between h-full max-w-lg mx-auto"
     >
       <div />
       <div className="flex flex-col gap-4">
