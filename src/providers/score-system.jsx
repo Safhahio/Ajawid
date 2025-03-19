@@ -5,12 +5,22 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import useStopWatch from "../hooks/useStopWatch";
 
 const ScoreContext = createContext();
 
 export const ScoreProvider = ({ children }) => {
+  const stopwatch = useStopWatch();
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    name: "",
+    age: "sm",
+  });
+
+
+  useEffect(() => {
+    console.log({currentUser})
+  }, [currentUser])
 
   useEffect(() => {
     const storedUsers = localStorage.getItem("scoreSystem");
@@ -24,12 +34,12 @@ export const ScoreProvider = ({ children }) => {
   }, [users]);
 
   const addUser = useCallback(
-    (name) => {
+    (name, score) => {
       if (users.some((user) => user.name === name)) {
         throw new Error(`User "${name}" already exists`);
       }
 
-      setUsers((current) => [...current, { name, score: 0 }]);
+      setUsers((current) => [...current, { name, score }]);
     },
     [users],
   );
@@ -63,6 +73,8 @@ export const ScoreProvider = ({ children }) => {
 
   const value = {
     users,
+    currentUser,
+    setCurrentUser,
     addUser,
     removeUser,
     updateScore,
@@ -75,6 +87,8 @@ export const ScoreProvider = ({ children }) => {
     <ScoreContext.Provider value={value}>{children}</ScoreContext.Provider>
   );
 };
+
+export default ScoreProvider;
 
 export const useScore = () => {
   const context = useContext(ScoreContext);

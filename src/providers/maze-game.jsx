@@ -8,17 +8,20 @@ import React, {
 } from "react";
 import useMazeGenerator from "../hooks/useMazeGenerator";
 import useMazeMovement from "../hooks/useMazeMovement";
-import useStopWatch from "../hooks/useStopWatch";
+import { useScore } from "./score-system";
 
 const MazeContext = createContext(null);
 
-const MazeProvider = ({ children }) => {
-  const mazeSize = useMemo(() => ({ width: 13, height: 9 }), []);
-  const stopwatch = useStopWatch();
-  const defaultCmd = useMemo(() => ({ valid: 0, steps: 0 }), []);
+const difficulty = {
+  sm: { width: 11, height: 7 },
+  md: { width: 13, height: 9 },
+  lg: { width: 15, height: 11 },
+};
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(stopwatch.start, []);
+const MazeProvider = ({ children }) => {
+  const { currentUser } = useScore();
+  const mazeSize = useMemo(() => difficulty[currentUser?.age], [currentUser]);
+  const defaultCmd = useMemo(() => ({ valid: 0, steps: 0 }), []);
 
   const { generateMaze, findPosition } = useMazeGenerator();
 
@@ -89,8 +92,6 @@ const MazeProvider = ({ children }) => {
   const resetGame = useCallback(() => {
     const newMaze = generateMaze(mazeSize.width, mazeSize.height);
     setMaze(newMaze);
-    stopwatch.reset();
-    stopwatch.start();
 
     const newPlayerPos = findPosition(newMaze, 2);
     const newEndPos = findPosition(newMaze, 3);
@@ -101,11 +102,12 @@ const MazeProvider = ({ children }) => {
     setCurrentStep(0);
     setMovementPath([]);
     setCommands([]);
-  }, [generateMaze, mazeSize.width, mazeSize.height, stopwatch, findPosition]);
+  }, [generateMaze, mazeSize.width, mazeSize.height, findPosition]);
+
+  useEffect(resetGame, [resetGame, currentUser]);
 
   const runCommands = useCallback(() => {
     if (commands.length === 0) return;
-    stopwatch.stop();
 
     setCommands((current) => current.map((cmd) => ({ ...cmd, ...defaultCmd })));
 
@@ -114,7 +116,7 @@ const MazeProvider = ({ children }) => {
     setStatus("running");
     setCurrentStep(0);
     setMovementPath([]);
-  }, [commands.length, defaultCmd, findPosition, maze, stopwatch]);
+  }, [commands.length, defaultCmd, findPosition, maze]);
 
   useEffect(() => {
     if (status !== "running") return;
@@ -192,7 +194,6 @@ const MazeProvider = ({ children }) => {
       addCmdDown,
       addCmdLeft,
       addCmdRight,
-      stopwatch,
     }),
     [
       maze,
@@ -209,7 +210,6 @@ const MazeProvider = ({ children }) => {
       addCmdDown,
       addCmdLeft,
       addCmdRight,
-      stopwatch,
     ],
   );
 

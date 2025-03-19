@@ -1,7 +1,26 @@
 import { useNavigate } from "react-router-dom";
+import { useScore } from "../providers/score-system";
+import { useState } from "react";
 
 function Start() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const { setCurrentUser } = useScore();
+
+  const validName = name !== "";
+  const validAge = age !== "";
+  const allGood = validName && validAge;
+
+  const handleStart = () => {
+    if (!allGood) return;
+
+    setCurrentUser({
+      name,
+      age,
+    });
+    navigate("/play/maze/");
+  };
 
   return (
     <div
@@ -11,8 +30,16 @@ function Start() {
       <h1 className="font-bold text-2xl text-center">
         مرحبا 👋 ادخل اسمك وعمرك للبدء!
       </h1>
-      <input placeholder="الاسم الكامل" type="text" />
-      <select defaultValue="" name="age">
+      <input
+        onInput={(e) => setName(e.target.value)}
+        placeholder="الاسم الكامل"
+        type="text"
+      />
+      <select
+        onChange={(e) => setAge(e.target.value)}
+        defaultValue=""
+        name="age"
+      >
         <option disabled value="">
           الفئة العمرية
         </option>
@@ -20,7 +47,7 @@ function Start() {
         <option value="md">11-15</option>
         <option value="lg">16+</option>
       </select>
-      <button className="accent" onClick={() => navigate("/play/maze")}>
+      <button disabled={!allGood} className="accent" onClick={handleStart}>
         ابدء
       </button>
     </div>

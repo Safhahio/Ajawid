@@ -14,9 +14,9 @@ const MazeGame = () => {
       <h1>Player: John</h1>
       <div className="flex gap-4">
         <MazeCommands />
-        <div className="flex-1">
+        <div className="flex-1 flex gap-4 flex-col">
           <MazeDisplay />
-          <MazeTimer />
+          {/* <MazeTimer /> */}
           <MazeControls />
         </div>
       </div>
