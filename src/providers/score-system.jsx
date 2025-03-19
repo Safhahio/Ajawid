@@ -25,6 +25,10 @@ export const ScoreProvider = ({ children }) => {
 
   useEffect(resetTimer, [resetTimer, currentUser]);
 
+  const resetUser = useCallback(() => {
+    setCurrentUser(defaultUser);
+  }, [defaultUser])
+
   const writeUsers = useCallback(() => {
     localStorage.setItem("scoreSystem", JSON.stringify(users));
   }, [users])
@@ -67,9 +71,14 @@ export const ScoreProvider = ({ children }) => {
   }, [writeUsers]);
 
   const restart = useCallback(() => {
-    setCurrentUser(defaultUser);
+    resetUser();
     navigate("/");
-  }, [defaultUser, navigate]);
+  }, [resetUser, navigate]);
+
+  const leaderboard = useCallback(() => {
+    navigate("/play/");
+    setTimeout(resetUser, 250);
+  }, [resetUser, navigate]);
 
   const value = {
     users,
@@ -81,6 +90,7 @@ export const ScoreProvider = ({ children }) => {
     getUser,
     getAllUsersSorted,
     reset,
+    leaderboard,
     restart,
     stopwatch,
   };

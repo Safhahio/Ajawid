@@ -25,7 +25,7 @@ const MazeProvider = ({ children }) => {
   const { reward: confettiReward } = useReward("confettiReward", "confetti");
   const navigate = useNavigate();
   const { stop, reset, time } = stopwatch;
-  const { addUser, currentUser } = score;
+  const { addUser, currentUser, leaderboard } = score;
   const mazeSize = useMemo(() => {
     if (currentUser.age === "") {
       return difficulty.md;
@@ -92,11 +92,10 @@ const MazeProvider = ({ children }) => {
     if (status === "win") {
       addUser(currentUser.name, time);
       confettiReward();
-      setTimeout(() => {
-        navigate("/play/");
-      }, 1000);
+      setTimeout(leaderboard, 1000);
+      setStatus("idle");
     }
-  }, [status, addUser, currentUser, time, navigate, confettiReward]);
+  }, [status, addUser, currentUser, time, navigate, confettiReward, leaderboard]);
 
   const rmCmd = useCallback(
     (id) => {
