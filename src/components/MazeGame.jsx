@@ -20,12 +20,16 @@ const MazeGame = () => {
         <User size={32} />
         <span>{score.currentUser.name}</span>
       </h1>
-      <div className="flex gap-4">
+      <div className="flex flex-col-reverse lg:flex-row gap-4">
         <MazeCommands />
         <div className="flex-1 flex gap-4 flex-col">
           <MazeDisplay />
-          <MazeTimer />
-          <MazeControls />
+          {isRunning ? null : (
+            <>
+              <MazeTimer />
+              <MazeControls />
+            </>
+          )}
         </div>
       </div>
       <div
@@ -41,7 +45,7 @@ const MazeGame = () => {
             "opacity-100": isRunning,
           })}
         >
-          <button className="sm" disabled={!isRunning} onClick={stopGame}>
+          <button className="sm hidden lg:flex" disabled={!isRunning} onClick={stopGame}>
             <X />
           </button>
         </div>

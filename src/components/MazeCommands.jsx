@@ -8,8 +8,8 @@ const MazeCommands = () => {
     <div
       dir="rtl"
       className={clsx({
-        "bg-light flex-1 py-4 px-2 shadow-md rounded-lg transition-transform origin-top-right duration-500 z-40": true,
-        "scale-125": isRunning,
+        "bg-light flex-1 py-4 px-2 shadow-md rounded-lg transition-transform origin-top lg:origin-top-right duration-500 z-40": true,
+        "lg:scale-125": isRunning,
       })}
     >
       <h2 className="px-4 font-bold text-lg">الأوامر: </h2>

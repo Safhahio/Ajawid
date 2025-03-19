@@ -54,7 +54,7 @@ function Play() {
           )}
         </div>
       </div>
-      <div className="flex gap-4 items-stretch">
+      <div className="flex flex-col lg:flex-row gap-4 items-stretch">
         <button onClick={score.restart} className="flex-1 flex items-center gap-4 warning">
           <RotateCcw />
           <span>العب مرة اخرى </span>

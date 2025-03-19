@@ -9,10 +9,10 @@ function App() {
       style={{
         minHeight: "calc(100vh - 6rem)",
       }}
-      className="grid grid-cols-12 p-8 gap-8"
+      className="grid grid-cols-1 lg:grid-cols-12 p-8 gap-8"
     >
-      <div className="col-span-3" />
-      <div className="col-span-6 w-full max-w-4xl mx-auto">
+      <div className="lg:col-span-3" />
+      <div className="lg:col-span-6 w-full max-w-4xl mx-auto">
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/play" element={<Play />} />
@@ -23,7 +23,7 @@ function App() {
           id="confettiReward"
         />
       </div>
-      <div className="col-span-3 flex flex-1 justify-between flex-col items-center gap-24 py-8">
+      <div className="lg:col-span-3 flex flex-1 justify-between flex-col items-center gap-24 py-8">
         <div className="flex flex-col gap-24">
           <img className="w-64" src="/logo.png" alt="" />
           <img className="w-64" src="/club.png" alt="" />
