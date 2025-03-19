@@ -10,6 +10,7 @@ import useMazeGenerator from "../hooks/useMazeGenerator";
 import useMazeMovement from "../hooks/useMazeMovement";
 import { useScore } from "./score-system";
 import { useNavigate } from "react-router-dom";
+import { useReward } from "react-rewards";
 
 const MazeContext = createContext(null);
 
@@ -21,6 +22,7 @@ const difficulty = {
 
 const MazeProvider = ({ children }) => {
   const { stopwatch, ...score } = useScore();
+  const { reward: confettiReward } = useReward("confettiReward", "confetti");
   const navigate = useNavigate();
   const { stop, reset, time } = stopwatch;
   const { addUser, currentUser } = score;
@@ -89,12 +91,12 @@ const MazeProvider = ({ children }) => {
 
     if (status === "win") {
       addUser(currentUser.name, time);
+      confettiReward();
       setTimeout(() => {
         navigate("/play/");
       }, 1000);
-    } else if (status === "lose") {
     }
-  }, [status, addUser, currentUser, time, navigate]);
+  }, [status, addUser, currentUser, time, navigate, confettiReward]);
 
   const rmCmd = useCallback(
     (id) => {

@@ -11,6 +11,10 @@ function App() {
         <Route path="/play" element={<Play />} />
         <Route path="/play/maze" element={<Maze />} />
       </Routes>
+      <span
+        className="fixed top-2/3 right-1/2 -translate-y-1/2 z-50 left-1/2"
+        id="confettiReward"
+      />
     </div>
   );
 }

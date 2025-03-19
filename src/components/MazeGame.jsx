@@ -5,12 +5,14 @@ import MazeControls from "./MazeControls";
 import MazeDisplay from "./MazeDisplay";
 import MazeTimer from "./MazeTimer";
 import { User, X } from "lucide-react";
+import MazeLose from "./MazeLose";
 
 const MazeGame = () => {
   const { isRunning, stopGame, score } = useMaze();
 
   return (
     <div>
+      <MazeLose />
       <h1
         dir="rtl"
         className="flex items-center justify-center gap-4 py-4 font-bold text-2xl"
