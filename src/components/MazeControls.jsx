@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useMaze } from "../providers/maze-game";
 import {
   ArrowBigUp,
@@ -19,11 +20,12 @@ const MazeCommands = () => {
     runCommands,
     resetGame,
   } = useMaze();
+  const navigate = useNavigate();
 
   return (
     <div>
       <div className="grid grid-cols-3 gap-4">
-        <button className="info" onClick={resetGame}>
+        <button className="info" onClick={() => navigate("/play/")}>
           <Crown />
         </button>
         <button onClick={addCmdUp} disabled={isRunning}>

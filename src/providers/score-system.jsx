@@ -4,26 +4,26 @@ import React, {
   useContext,
   useEffect,
   useCallback,
+  useMemo,
 } from "react";
 import useStopWatch from "../hooks/useStopWatch";
+import { useNavigate } from "react-router-dom";
 
 const ScoreContext = createContext();
 
 export const ScoreProvider = ({ children }) => {
   const stopwatch = useStopWatch();
-  const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState({ name: "", age: "" });
+  const [users, setUsers] = useState(() => {
+    const storedUsers = localStorage.getItem("scoreSystem");
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  });
+  const navigate = useNavigate();
+  const defaultUser = useMemo(() => ({ name: "", age: "" }), []);
+  const [currentUser, setCurrentUser] = useState(defaultUser);
 
   const resetTimer = stopwatch.reset;
 
   useEffect(resetTimer, [resetTimer, currentUser]);
-
-  useEffect(() => {
-    const storedUsers = localStorage.getItem("scoreSystem");
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers));
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("scoreSystem", JSON.stringify(users));
@@ -31,9 +31,7 @@ export const ScoreProvider = ({ children }) => {
 
   const addUser = useCallback(
     (name, score) => {
-      if (users.some((user) => user.name === name)) {
-        throw new Error(`User "${name}" already exists`);
-      }
+      if (users.some((user) => user.name === name)) return;
 
       setUsers((current) => [...current, { name, score }]);
     },
@@ -44,11 +42,9 @@ export const ScoreProvider = ({ children }) => {
     setUsers((current) => current.filter((user) => user.name !== name));
   }, []);
 
-  const updateScore = useCallback((name, newScore) => {
+  const updateScore = useCallback((name, score) => {
     setUsers((current) =>
-      current.map((user) =>
-        user.name === name ? { ...user, score: Number(newScore) } : user,
-      ),
+      current.map((user) => (user.name === name ? { ...user, score } : user)),
     );
   }, []);
 
@@ -60,12 +56,17 @@ export const ScoreProvider = ({ children }) => {
   );
 
   const getAllUsersSorted = useCallback(() => {
-    return [...users].sort((a, b) => b.score - a.score);
+    return [...users].sort((a, b) => a.score - b.score);
   }, [users]);
 
   const reset = useCallback(() => {
     setUsers([]);
   }, []);
+
+  const restart = useCallback(() => {
+    setCurrentUser(defaultUser);
+    navigate("/");
+  }, [defaultUser, navigate]);
 
   const value = {
     users,
@@ -77,6 +78,7 @@ export const ScoreProvider = ({ children }) => {
     getUser,
     getAllUsersSorted,
     reset,
+    restart,
     stopwatch,
   };
 

@@ -8,7 +8,7 @@ const MazeCommands = () => {
     <div
       dir="rtl"
       className={clsx({
-        "bg-light flex-1 py-4 px-2 border-2 border-light-dark rounded-lg transition-transform origin-top-right duration-500 z-40": true,
+        "bg-light flex-1 py-4 px-2 shadow-md rounded-lg transition-transform origin-top-right duration-500 z-40": true,
         "scale-125": isRunning,
       })}
     >
@@ -36,7 +36,17 @@ const MazeCommands = () => {
                   <span>{cmd.display}</span>
                   {isValid ? <span> ✓</span> : null}
                   {isInvalid ? <span> ✗</span> : null}
-                  {cmd.steps ? <span> ({cmd.steps} خطوات)</span> : null}
+                  {cmd.steps ? (
+                    <span>
+                      (
+                      {cmd.steps === 1
+                        ? "خطوة واحدة"
+                        : cmd.steps === 2
+                          ? "خطوتان"
+                          : `${cmd.steps} خطوات`}
+                      )
+                    </span>
+                  ) : null}
                 </span>
               </button>
             );

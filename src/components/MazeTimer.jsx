@@ -5,7 +5,7 @@ const MazeTimer = () => {
 
   return (
     <div className="flex p-4 max-h-96 overflow-y-scroll flex-col gap-2 text-center text-7xl font-mono">
-      {stopwatch.formatTime()}
+      {stopwatch.timeFormatted()}
     </div>
   );
 };

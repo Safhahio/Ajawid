@@ -4,15 +4,19 @@ import MazeCommands from "./MazeCommands";
 import MazeControls from "./MazeControls";
 import MazeDisplay from "./MazeDisplay";
 import MazeTimer from "./MazeTimer";
-import { X } from "lucide-react";
+import { User, X } from "lucide-react";
 
 const MazeGame = () => {
   const { isRunning, stopGame, score } = useMaze();
 
   return (
     <div>
-      <h1 dir="rtl" className="text-center py-4 font-bold text-lg">
-        المتسابق: {score.currentUser.name}
+      <h1
+        dir="rtl"
+        className="flex items-center justify-center gap-4 py-4 font-bold text-2xl"
+      >
+        <User size={32} />
+        <span>{score.currentUser.name}</span>
       </h1>
       <div className="flex gap-4">
         <MazeCommands />

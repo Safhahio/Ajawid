@@ -8,7 +8,7 @@ const MazeDisplay = () => {
     <div className="col-span-2 flex items-center justify-center">
       <div
         className={clsx({
-          "bg-light p-4 border-2 border-light-dark rounded-lg transition-transform origin-top-left duration-500 z-40": true,
+          "bg-light p-4 shadow-md rounded-lg transition-transform origin-top-left duration-500 z-40": true,
           "scale-125": isRunning,
         })}
       >

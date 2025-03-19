@@ -9,6 +9,7 @@ import React, {
 import useMazeGenerator from "../hooks/useMazeGenerator";
 import useMazeMovement from "../hooks/useMazeMovement";
 import { useScore } from "./score-system";
+import { useNavigate } from "react-router-dom";
 
 const MazeContext = createContext(null);
 
@@ -20,8 +21,9 @@ const difficulty = {
 
 const MazeProvider = ({ children }) => {
   const { stopwatch, ...score } = useScore();
-  const { stop, reset } = stopwatch;
-  const { currentUser } = score;
+  const navigate = useNavigate();
+  const { stop, reset, time } = stopwatch;
+  const { addUser, currentUser } = score;
   const mazeSize = useMemo(() => {
     if (currentUser.age === "") {
       return difficulty.md;
@@ -81,6 +83,14 @@ const MazeProvider = ({ children }) => {
       prevCmds.map((cmd, i) => (i === idx ? { ...cmd, ...opts } : cmd)),
     );
   }, []);
+
+  useEffect(() => {
+    if (status !== "win") return;
+    addUser(currentUser.name, time);
+    setTimeout(() => {
+      navigate("/play/");
+    }, 1000);
+  }, [status, addUser, currentUser, time, navigate]);
 
   const rmCmd = useCallback(
     (id) => {
