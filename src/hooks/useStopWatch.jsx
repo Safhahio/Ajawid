@@ -33,7 +33,15 @@ const useStopwatch = () => {
     return formatTime(time);
   }, [time, formatTime]);
 
-  return { time, running, start, stop, reset, formatTime, timeFormatted };
+  return {
+    time,
+    running,
+    start,
+    stop,
+    reset,
+    formatTime,
+    timeFormatted,
+  };
 };
 
 export default useStopwatch;

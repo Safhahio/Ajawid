@@ -56,12 +56,18 @@ const MazeProvider = ({ children }) => {
 
   const addCmd = useCallback(
     (cmd) => {
+      if (!stopwatch.running) {
+        stopwatch.start();
+      }
+      if (status === "lose") {
+        setStatus("idle");
+      }
       if (commands.length && commands[commands.length - 1].dir === cmd.dir)
         return;
       const id = Date.now() + Math.random();
       setCommands((current) => [...current, { ...cmd, id, ...defaultCmd }]);
     },
-    [commands, defaultCmd],
+    [commands, defaultCmd, status, stopwatch],
   );
 
   const addCmdUp = useCallback(() => {
@@ -95,7 +101,15 @@ const MazeProvider = ({ children }) => {
       setTimeout(leaderboard, 1000);
       setStatus("idle");
     }
-  }, [status, addUser, currentUser, time, navigate, confettiReward, leaderboard]);
+  }, [
+    status,
+    addUser,
+    currentUser,
+    time,
+    navigate,
+    confettiReward,
+    leaderboard,
+  ]);
 
   const rmCmd = useCallback(
     (id) => {
