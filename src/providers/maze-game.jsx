@@ -19,8 +19,15 @@ const difficulty = {
 };
 
 const MazeProvider = ({ children }) => {
-  const { currentUser } = useScore();
-  const mazeSize = useMemo(() => difficulty[currentUser?.age], [currentUser]);
+  const { stopwatch, ...score } = useScore();
+  const { stop, reset } = stopwatch;
+  const { currentUser } = score;
+  const mazeSize = useMemo(() => {
+    if (currentUser.age === "") {
+      return difficulty.md;
+    }
+    return difficulty[currentUser.age];
+  }, [currentUser]);
   const defaultCmd = useMemo(() => ({ valid: 0, steps: 0 }), []);
 
   const { generateMaze, findPosition } = useMazeGenerator();
@@ -92,6 +99,7 @@ const MazeProvider = ({ children }) => {
   const resetGame = useCallback(() => {
     const newMaze = generateMaze(mazeSize.width, mazeSize.height);
     setMaze(newMaze);
+    reset();
 
     const newPlayerPos = findPosition(newMaze, 2);
     const newEndPos = findPosition(newMaze, 3);
@@ -102,12 +110,13 @@ const MazeProvider = ({ children }) => {
     setCurrentStep(0);
     setMovementPath([]);
     setCommands([]);
-  }, [generateMaze, mazeSize.width, mazeSize.height, findPosition]);
+  }, [generateMaze, mazeSize.width, mazeSize.height, reset, findPosition]);
 
   useEffect(resetGame, [resetGame, currentUser]);
 
   const runCommands = useCallback(() => {
     if (commands.length === 0) return;
+    stop();
 
     setCommands((current) => current.map((cmd) => ({ ...cmd, ...defaultCmd })));
 
@@ -116,7 +125,7 @@ const MazeProvider = ({ children }) => {
     setStatus("running");
     setCurrentStep(0);
     setMovementPath([]);
-  }, [commands.length, defaultCmd, findPosition, maze]);
+  }, [commands.length, defaultCmd, findPosition, maze, stop]);
 
   useEffect(() => {
     if (status !== "running") return;
@@ -194,6 +203,8 @@ const MazeProvider = ({ children }) => {
       addCmdDown,
       addCmdLeft,
       addCmdRight,
+      stopwatch,
+      score,
     }),
     [
       maze,
@@ -210,6 +221,8 @@ const MazeProvider = ({ children }) => {
       addCmdDown,
       addCmdLeft,
       addCmdRight,
+      stopwatch,
+      score,
     ],
   );
 

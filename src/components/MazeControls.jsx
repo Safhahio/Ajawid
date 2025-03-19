@@ -5,6 +5,7 @@ import {
   ArrowBigRight,
   ArrowBigLeft,
   RotateCcw,
+  Crown,
 } from "lucide-react";
 
 const MazeCommands = () => {
@@ -22,7 +23,10 @@ const MazeCommands = () => {
   return (
     <div>
       <div className="grid grid-cols-3 gap-4">
-        <button className="col-start-2" onClick={addCmdUp} disabled={isRunning}>
+        <button className="info" onClick={resetGame}>
+          <Crown />
+        </button>
+        <button onClick={addCmdUp} disabled={isRunning}>
           <ArrowBigUp />
         </button>
         <button className="warning" onClick={resetGame}>

@@ -16,7 +16,10 @@ const useStopwatch = () => {
 
   const start = useCallback(() => setRunning(true), []);
   const stop = useCallback(() => setRunning(false), []);
-  const reset = useCallback(() => { setTime(0); }, []);
+  const reset = useCallback(() => {
+    setTime(0);
+    setRunning(true);
+  }, []);
 
   const formatTime = useCallback(() => {
     const minutes = Math.floor((time / 60000) % 60);

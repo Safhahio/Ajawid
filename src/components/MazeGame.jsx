@@ -7,16 +7,18 @@ import MazeTimer from "./MazeTimer";
 import { X } from "lucide-react";
 
 const MazeGame = () => {
-  const { isRunning, stopGame } = useMaze();
+  const { isRunning, stopGame, score } = useMaze();
 
   return (
     <div>
-      <h1>Player: John</h1>
+      <h1 dir="rtl" className="text-center py-4 font-bold text-lg">
+        المتسابق: {score.currentUser.name}
+      </h1>
       <div className="flex gap-4">
         <MazeCommands />
         <div className="flex-1 flex gap-4 flex-col">
           <MazeDisplay />
-          {/* <MazeTimer /> */}
+          <MazeTimer />
           <MazeControls />
         </div>
       </div>

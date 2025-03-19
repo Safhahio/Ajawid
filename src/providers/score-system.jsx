@@ -12,15 +12,11 @@ const ScoreContext = createContext();
 export const ScoreProvider = ({ children }) => {
   const stopwatch = useStopWatch();
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState({
-    name: "",
-    age: "sm",
-  });
+  const [currentUser, setCurrentUser] = useState({ name: "", age: "" });
 
+  const resetTimer = stopwatch.reset;
 
-  useEffect(() => {
-    console.log({currentUser})
-  }, [currentUser])
+  useEffect(resetTimer, [resetTimer, currentUser]);
 
   useEffect(() => {
     const storedUsers = localStorage.getItem("scoreSystem");
@@ -81,6 +77,7 @@ export const ScoreProvider = ({ children }) => {
     getUser,
     getAllUsersSorted,
     reset,
+    stopwatch,
   };
 
   return (

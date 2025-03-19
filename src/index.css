@@ -130,6 +130,28 @@ button.success:active {
   margin-top: theme("--press-offset");
 }
 
+button.info {
+  background-color: theme("--color-info");
+  border-bottom: theme("--border-width") solid theme("--color-info-dark");
+  box-shadow:
+    0 theme("--border-width") 0 0 theme("--color-info-dark"),
+    0 theme("--shadow-depth") theme("--shadow-depth")
+      rgba(0, 0, 0, theme("--shadow-opacity"));
+  @apply text-light;
+}
+
+button.info:hover {
+  background-color: theme("--color-info-hover");
+}
+
+button.info:active {
+  @apply border-b-0;
+  box-shadow: inset 0 theme("--shadow-inset-strength")
+    theme("--shadow-inset-spread") rgba(0, 0, 0, theme("--shadow-opacity"));
+  background-color: theme("--color-info-hover");
+  margin-top: theme("--press-offset");
+}
+
 button.danger {
   background-color: theme("--color-danger");
   border-bottom: theme("--border-width") solid theme("--color-danger-dark");
